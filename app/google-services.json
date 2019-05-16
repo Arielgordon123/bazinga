@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "582502776890",
+    "firebase_url": "https://bazinga-338d5.firebaseio.com",
+    "project_id": "bazinga-338d5",
+    "storage_bucket": "bazinga-338d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582502776890:android:01f36de20730b08f",
+        "android_client_info": {
+          "package_name": "com.Bazinga.Bazinga"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "582502776890-i59i98oaa8p18rri1g7mrk57prghkqqc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Bazinga.Bazinga",
+            "certificate_hash": "be35c04b41055ccbe49be1743437b27094bb6134"
+          }
+        },
+        {
+          "client_id": "582502776890-icmtugubinbic2rsbopfkgcuqccogj7t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-th1hQVRgSnCAeqU7Bn1VNI7p3hjKI9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "582502776890-icmtugubinbic2rsbopfkgcuqccogj7t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
