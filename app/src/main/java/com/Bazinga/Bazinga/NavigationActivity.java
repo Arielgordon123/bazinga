@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
+import android.text.Html;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -35,11 +36,14 @@ public class NavigationActivity extends AppCompatActivity
     private FirebaseFirestore db;
     // [START declare_auth]
     private FirebaseAuth mAuth;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-
+        //setPageTitle("Dashboard");
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -53,6 +57,7 @@ public class NavigationActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Dashboard");
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
