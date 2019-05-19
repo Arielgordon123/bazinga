@@ -3,6 +3,7 @@ package com.ork.bazinga2.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,7 +42,7 @@ import static com.ork.bazinga2.MainApp.mAuth;
 public class Calendar extends Fragment {
     View curview;
 
-    private Button addBtn;
+    private FloatingActionButton addBtn;
     private ListView dayList;
     private MainApp ma;
     static public CalendarView calendarView;

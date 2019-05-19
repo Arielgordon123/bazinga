@@ -6,18 +6,11 @@
     android:orientation="vertical"
     tools:context=".MainApp">
 
-    <Button
-        android:id="@+id/add"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_weight="1"
-        android:onClick="openAddDialog"
-        android:text="add" />
 
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calander"
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="352dp">
 
     </com.applandeo.materialcalendarview.CalendarView>
 
@@ -28,5 +21,14 @@
         android:layout_weight="1">
 
     </ListView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:onClick="openAddDialog"
+        android:src="@drawable/circle" />
 
 </LinearLayout>
