@@ -58,7 +58,7 @@ public class TimerFragment extends Fragment implements TimerUpdate.TimeUpdateLis
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        curview =  inflater.inflate(R.layout.exam_list_fragment,container,false);
+        curview =  inflater.inflate(R.layout.timer_fragment,container,false);
         mainApp = new MainApp();
         setPageTitle("Timer");
 

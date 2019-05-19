@@ -20,6 +20,12 @@
             android:id="@+id/timer"
             android:icon="@drawable/ic_menu_manage"
             android:title="Timer" />
+        <item
+            android:id="@+id/brainTrainer"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="brainTrainer" />
+
+
     </group>
 
     <item android:title="Communicate">
