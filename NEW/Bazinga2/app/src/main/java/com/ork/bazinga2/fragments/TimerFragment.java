@@ -95,7 +95,7 @@ public class TimerFragment extends Fragment implements TimerUpdate.TimeUpdateLis
         timer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                _OpenTimeEditor(null);
             }
         });
 
