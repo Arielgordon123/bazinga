@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.ork.bazinga2.MainApp;
 import com.ork.bazinga2.R;
 
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -73,7 +74,8 @@ public class addDialog extends AppCompatDialogFragment {
                         // Write a message to the database
 
                         DatabaseReference myRef = MainApp.database.getReference();
-                        myRef.child(MainApp.mAuth.getUid()).child("events").child(date.replace('/','-')).setValue(newEvent);
+//                        myRef.child(MainApp.mAuth.getUid()).child("events").child(date.replace('/','-')).setValue(newEvent);
+                        myRef.child(MainApp.mAuth.getUid()).child("events").child("Ev"+new java.util.Date().hashCode()* -1).setValue(newEvent);
 
                         addEvent(date);
                     }

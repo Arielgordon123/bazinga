@@ -53,33 +53,35 @@ public class Calendar extends Fragment {
 
                 java.util.Calendar clickedDayCalendar = eventDay.getCalendar();
                 Date date = clickedDayCalendar.getTime();
-                DateFormat df = new SimpleDateFormat("dd-M-yyyy");
+                DateFormat df = new SimpleDateFormat("d/M/yyyy");
                 String curDate = df.format(date);
 
                 //FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference()
                         .child(MainApp.mAuth.getUid())
-                        .child("events").child(curDate);
-                Log.e("tag",myRef.toString());
-
-                myRef.addValueEventListener(new ValueEventListener() {
+                        .child("events");
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.hasChildren()) {
-                            event post = dataSnapshot.getValue(event.class);
+                        ArrayList<Map<String,Object>> arr = new ArrayList<>();
+                        SimpleAdapter simpleAdapter = new SimpleAdapter(curview.getContext(),arr,android.R.layout.simple_list_item_2, new String[]{"title","description"},new int[]{android.R.id.text1,android.R.id.text2});
 
-                            ArrayList<Map<String,Object>> arr = new ArrayList<Map<String,Object>>();
-                            String listData ="Date: "+post.date + "\nTime: " +post.time + "\nDuration: " +post.duration;
-                            Map<String,Object> listItemMap = new HashMap<String,Object>();
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            event post = postSnapshot.getValue(event.class);
+                            Log.e("inside loop", post.date);
+                            Log.e("curDate", curDate);
 
-                            listItemMap.put("title", post.title);
-                            listItemMap.put("description",listData);
-                            arr.add(listItemMap);
+                            if(post.date.equals(curDate) ) {
+                                String listData ="Date: "+post.date + "\nTime: " +post.time + "\nDuration: " +post.duration;
+                                Map<String,Object> listItemMap = new HashMap<>();
 
-                            SimpleAdapter simpleAdapter = new SimpleAdapter(curview.getContext(),arr,android.R.layout.simple_list_item_2, new String[]{"title","description"},new int[]{android.R.id.text1,android.R.id.text2});
+                                listItemMap.put("title", post.title);
+                                listItemMap.put("description",listData);
+                                arr.add(listItemMap);
+                            }
 
-                            dayList.setAdapter(simpleAdapter);
                         }
+                        dayList.setAdapter(simpleAdapter);
                     }
 
                     @Override
@@ -87,6 +89,34 @@ public class Calendar extends Fragment {
 
                     }
                 });
+
+                Log.e("tag",myRef.toString());
+
+//                myRef.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        if(dataSnapshot.hasChildren()) {
+//                            event post = dataSnapshot.getValue(event.class);
+//
+//                            ArrayList<Map<String,Object>> arr = new ArrayList<Map<String,Object>>();
+//                            String listData ="Date: "+post.date + "\nTime: " +post.time + "\nDuration: " +post.duration;
+//                            Map<String,Object> listItemMap = new HashMap<String,Object>();
+//
+//                            listItemMap.put("title", post.title);
+//                            listItemMap.put("description",listData);
+//                            arr.add(listItemMap);
+//
+//                            SimpleAdapter simpleAdapter = new SimpleAdapter(curview.getContext(),arr,android.R.layout.simple_list_item_2, new String[]{"title","description"},new int[]{android.R.id.text1,android.R.id.text2});
+//
+//                            dayList.setAdapter(simpleAdapter);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
             }
         });
     }
@@ -133,6 +163,8 @@ public class Calendar extends Fragment {
                 fillCalendar();
             }
         });
+        dayList = curview.findViewById(R.id.dayList);
+        setDayList();
         fillCalendar();
         return  curview;
     }
