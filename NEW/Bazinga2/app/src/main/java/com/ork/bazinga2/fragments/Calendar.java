@@ -14,6 +14,7 @@ import android.widget.SimpleAdapter;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
+import com.applandeo.materialcalendarview.listeners.DayRowClickListener;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.google.firebase.database.DataSnapshot;
@@ -40,7 +41,7 @@ public class Calendar extends Fragment {
     private ListView dayList;
     private MainApp ma;
     static public CalendarView calendarView;
-
+    addSubjectDialog exampleDialog = new addSubjectDialog();
     public void setDayList(){
         calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
@@ -63,8 +64,8 @@ public class Calendar extends Fragment {
 
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             event post = postSnapshot.getValue(event.class);
-                            Log.e("inside loop", post.date);
-                            Log.e("curDate", curDate);
+//                            Log.e("inside loop", post.date);
+//                            Log.e("curDate", curDate);
 
                             if(post.date.equals(curDate) ) {
                                 String listData ="Date: "+post.date + "\nTime: " +post.time + "\nDuration: " +post.duration;
@@ -76,6 +77,19 @@ public class Calendar extends Fragment {
                             }
 
                         }
+                        dayList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                try {
+                                    Object o = dayList.getItemAtPosition(position);
+                                    exampleDialog.show(getFragmentManager(), "addSubject");
+                                }
+                                catch(Exception e)
+                                {
+                                    Log.e("error", e.getMessage());
+                                }
+                            }
+                        });
                         dayList.setAdapter(simpleAdapter);
                     }
 
@@ -136,6 +150,9 @@ public class Calendar extends Fragment {
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
                 Log.w("TAG", "Failed to read value.", error.toException());
+
+
+
             }
         });
     }
