@@ -15,12 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
+import com.Bazinga.Bazinga.fragments.CalendarFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
-
-import static com.Bazinga.Bazinga.MyFirebaseAuth.signOut;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -110,7 +109,9 @@ public class NavigationActivity extends AppCompatActivity
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
             startActivity(intent);
             this.finish();
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_calendar) {
+// Create new fragment and transaction
+           getSupportFragmentManager().beginTransaction().replace(R.id.FragmentManger, new CalendarFragment()).commit();
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -122,7 +123,7 @@ public class NavigationActivity extends AppCompatActivity
 
         }
         else if (id == R.id.nav_logout) {
-           // signOut();
+            // signOut();
             // TODO: handle logOut
 
 
