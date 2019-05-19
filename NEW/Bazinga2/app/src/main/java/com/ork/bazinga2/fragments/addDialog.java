@@ -74,7 +74,6 @@ public class addDialog extends AppCompatDialogFragment {
                         // Write a message to the database
 
                         DatabaseReference myRef = MainApp.database.getReference();
-//                        myRef.child(MainApp.mAuth.getUid()).child("events").child(date.replace('/','-')).setValue(newEvent);
                         myRef.child(MainApp.mAuth.getUid()).child("events").child("Ev"+new java.util.Date().hashCode()* -1).setValue(newEvent);
 
                         addEvent(date);

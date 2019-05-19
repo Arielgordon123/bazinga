@@ -132,7 +132,7 @@ public class MainApp extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.cont, new ExamList()).commit();
         } else if (id == R.id.timer) {
             getSupportFragmentManager().beginTransaction().replace(R.id.cont, new TimerFragment()).commit();
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.brainTrainer) {
 
         } else if (id == R.id.nav_send) {
 
