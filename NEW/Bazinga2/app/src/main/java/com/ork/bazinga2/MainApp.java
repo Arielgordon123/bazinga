@@ -1,17 +1,25 @@
 package com.ork.bazinga2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,6 +30,8 @@ import com.ork.bazinga2.fragments.MyTimePicker;
 import com.ork.bazinga2.fragments.TimerFragment;
 import com.ork.bazinga2.fragments.addDialog;
 
+import static com.ork.bazinga2.MyFirebaseAuth.signOut;
+
 public class MainApp extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -31,6 +41,7 @@ public class MainApp extends AppCompatActivity
 
     public static FirebaseDatabase database;
     ProgressBar progressBar;
+    private GoogleSignInClient mGoogleSignInClient;
     // Clander section
     public void openDatePicker(View view){
         MyDatePicker datePicker = new MyDatePicker();
@@ -63,7 +74,13 @@ public class MainApp extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        // [END config_signin]
 
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -119,6 +136,19 @@ public class MainApp extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
+        }else if (id == R.id.nav_logout){
+            Task<Void> voidTask = signOut(db, mAuth, mGoogleSignInClient).addOnCompleteListener(this,
+                    new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                            Intent intent = new Intent(MainApp.this, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+
+                            startActivity(intent);
+                            MainApp.this.finish();
+                        }
+                    });
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
