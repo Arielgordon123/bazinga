@@ -9,13 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.Bazinga.Bazinga.R;
+
 public class CalendarFragment extends Fragment {
 
     private View curview;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        curview =  super.onCreateView(inflater, container, savedInstanceState);
+        curview =  inflater.inflate(R.layout.fragment_calander,container,false);
 
         return  curview;
     }

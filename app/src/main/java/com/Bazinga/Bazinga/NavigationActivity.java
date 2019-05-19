@@ -111,7 +111,7 @@ public class NavigationActivity extends AppCompatActivity
             this.finish();
         } else if (id == R.id.nav_calendar) {
 // Create new fragment and transaction
-           getSupportFragmentManager().beginTransaction().replace(R.id.FragmentManger, new CalendarFragment()).commit();
+           getSupportFragmentManager().beginTransaction().replace(R.id.cont, new CalendarFragment()).commit();
 
         } else if (id == R.id.nav_slideshow) {
 
