@@ -1,25 +1,24 @@
 package com.ork.bazinga2;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
-import android.support.v4.view.GravityCompat;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.ork.bazinga2.fragments.Calendar;
+import com.ork.bazinga2.fragments.ExamList;
 import com.ork.bazinga2.fragments.MyDatePicker;
 import com.ork.bazinga2.fragments.MyTimePicker;
+import com.ork.bazinga2.fragments.TimerFragment;
 import com.ork.bazinga2.fragments.addDialog;
 
 public class MainApp extends AppCompatActivity
@@ -47,7 +46,6 @@ public class MainApp extends AppCompatActivity
 
         exampleDialog.show(getSupportFragmentManager(), "addDialog");
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,10 +108,10 @@ public class MainApp extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.calander) {
             getSupportFragmentManager().beginTransaction().replace(R.id.cont, new Calendar()).commit();
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_tools) {
-
+        } else if (id == R.id.examList) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.cont, new ExamList()).commit();
+        } else if (id == R.id.timer) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.cont, new TimerFragment()).commit();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

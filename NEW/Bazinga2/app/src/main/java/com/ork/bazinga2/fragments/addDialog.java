@@ -11,10 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.applandeo.materialcalendarview.EventDay;
-
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.ork.bazinga2.MainActivity;
 import com.ork.bazinga2.MainApp;
 import com.ork.bazinga2.R;
 
