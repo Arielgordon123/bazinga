@@ -14,6 +14,7 @@ import android.widget.SimpleAdapter;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
+import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +35,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.ork.bazinga2.MainApp.database;
+import static com.ork.bazinga2.MainApp.mAuth;
+
 public class Calendar extends Fragment {
     View curview;
 
@@ -52,8 +56,10 @@ public class Calendar extends Fragment {
                 DateFormat df = new SimpleDateFormat("dd-M-yyyy");
                 String curDate = df.format(date);
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference().child("events").child(curDate);
+                //FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference()
+                        .child(MainApp.mAuth.getUid())
+                        .child("events").child(curDate);
                 Log.e("tag",myRef.toString());
 
                 myRef.addValueEventListener(new ValueEventListener() {
@@ -84,9 +90,10 @@ public class Calendar extends Fragment {
             }
         });
     }
+
     public void fillCalendar(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child("events");
+
+        DatabaseReference myRef = database.getReference().child(mAuth.getUid()).child("events");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -113,7 +120,20 @@ public class Calendar extends Fragment {
         curview =  inflater.inflate(R.layout.fragment_calander,container,false);
         ma = new MainApp();
         addBtn = curview.findViewById(R.id.add);
-
+        calendarView = curview.findViewById(R.id.calander);
+        calendarView.setOnPreviousPageChangeListener(new OnCalendarPageChangeListener() {
+            @Override
+            public void onChange() {
+                fillCalendar();
+            }
+        });
+        calendarView.setOnForwardPageChangeListener(new OnCalendarPageChangeListener() {
+            @Override
+            public void onChange() {
+                fillCalendar();
+            }
+        });
+        fillCalendar();
         return  curview;
     }
 }

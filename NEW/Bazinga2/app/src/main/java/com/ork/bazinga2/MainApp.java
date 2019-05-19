@@ -14,6 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.ork.bazinga2.fragments.Calendar;
 import com.ork.bazinga2.fragments.MyDatePicker;
 import com.ork.bazinga2.fragments.MyTimePicker;
@@ -22,6 +25,11 @@ import com.ork.bazinga2.fragments.addDialog;
 public class MainApp extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public FirebaseFirestore db;
+    // [START declare_auth]
+    public static FirebaseAuth mAuth;
+
+    public static FirebaseDatabase database;
     // Clander section
     public void openDatePicker(View view){
         MyDatePicker datePicker = new MyDatePicker();
@@ -54,6 +62,10 @@ public class MainApp extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        database = FirebaseDatabase.getInstance();
     }
 
     @Override

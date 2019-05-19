@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         // Button listeners
         findViewById(R.id.signInButton).setOnClickListener(this);
         // findViewById(R.id.signOutButton).setOnClickListener(this);
@@ -71,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // [START initialize_auth]
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+
         // [END initialize_auth]
     }
     public void showProgressDialog() {
