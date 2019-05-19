@@ -15,9 +15,31 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import com.ork.bazinga2.fragments.Calendar;
+import com.ork.bazinga2.fragments.MyDatePicker;
+import com.ork.bazinga2.fragments.MyTimePicker;
+import com.ork.bazinga2.fragments.addDialog;
 
 public class MainApp extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    // Clander section
+    public void openDatePicker(View view){
+        MyDatePicker datePicker = new MyDatePicker();
+        datePicker.show(getSupportFragmentManager(), "DatePicker");
+
+    }
+    public void openTimePicker(View view){
+        MyTimePicker timePicker = new MyTimePicker();
+        timePicker.show(getSupportFragmentManager(), "TimePicker");
+
+    }
+//------------------------------------------
+    public void openAddDialog(View view){
+        addDialog exampleDialog = new addDialog();
+
+        exampleDialog.show(getSupportFragmentManager(), "addDialog");
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +47,6 @@ public class MainApp extends AppCompatActivity
         setContentView(R.layout.activity_main_app);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

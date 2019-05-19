@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<com.applandeo.materialcalendarview.CalendarView
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"></com.applandeo.materialcalendarview.CalendarView>
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainApp">
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_weight="1"
+        android:onClick="openAddDialog"
+        android:text="add" />
+
+    <com.applandeo.materialcalendarview.CalendarView
+        android:id="@+id/calander"
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+
+    </com.applandeo.materialcalendarview.CalendarView>
+
+    <ListView
+        android:id="@+id/dayList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+    </ListView>
+
 </LinearLayout>
