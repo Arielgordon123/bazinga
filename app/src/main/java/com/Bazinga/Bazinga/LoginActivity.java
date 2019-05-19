@@ -184,6 +184,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (user != null) {
             Intent intent = new Intent(this,NavigationActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+
             startActivity(intent);
             this.finish();
 
