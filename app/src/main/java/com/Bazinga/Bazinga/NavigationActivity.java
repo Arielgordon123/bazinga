@@ -2,6 +2,7 @@ package com.Bazinga.Bazinga;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -19,12 +20,18 @@ import com.Bazinga.Bazinga.fragments.CalendarFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import static com.Bazinga.Bazinga.MyFirebaseAuth.signOut;
+
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private GoogleSignInClient mGoogleSignInClient;
-
+    private FirebaseFirestore db;
     // [START declare_auth]
     private FirebaseAuth mAuth;
     @Override
@@ -43,7 +50,7 @@ public class NavigationActivity extends AppCompatActivity
         // [START initialize_auth]
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
+        db = FirebaseFirestore.getInstance();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -125,7 +132,16 @@ public class NavigationActivity extends AppCompatActivity
         else if (id == R.id.nav_logout) {
             // signOut();
             // TODO: handle logOut
+            signOut(db,mAuth,mGoogleSignInClient).addOnCompleteListener(this,
+                    new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                           Intent logoutIntent = new Intent( NavigationActivity.this, LoginActivity.class);
+                           startActivity(logoutIntent);
+                        }
 
+
+                    });
 
         }
 
@@ -133,4 +149,5 @@ public class NavigationActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

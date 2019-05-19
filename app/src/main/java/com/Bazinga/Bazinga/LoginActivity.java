@@ -29,7 +29,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.Bazinga.Bazinga.MyFirebaseAuth.revokeAccess;
 import static com.Bazinga.Bazinga.MyFirebaseAuth.signOut;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
@@ -208,12 +207,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (i == R.id.signInButton) {
             signIn();
         } else if (i == R.id.disconnectButton) {
-            Map<String, Object> m = new HashMap<>();
-            m.put("logout",new Date().getTime());
-            db.collection("users")
-                    .document(mAuth.getUid())
-                    .update(m);
-            revokeAccess(mAuth,mGoogleSignInClient).addOnCompleteListener(this,
+
+            signOut(db,mAuth,mGoogleSignInClient).addOnCompleteListener(this,
                     new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
