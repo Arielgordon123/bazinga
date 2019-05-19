@@ -32,7 +32,7 @@ import java.util.Map;
 import static com.Bazinga.Bazinga.MyFirebaseAuth.revokeAccess;
 import static com.Bazinga.Bazinga.MyFirebaseAuth.signOut;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "GoogleActivity";
 
     public ProgressDialog mProgressDialog;
@@ -151,13 +151,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             this_user.put("email", mAuth.getCurrentUser().getEmail());
                             this_user.put("Lastlogin",new Date().getTime() +"");
                             this_user.put("logout","");
-                            // Add a new document with a generated ID
+                            // Update user Last login
                             db.collection("users").document(mAuth.getUid())
                                     .set(this_user)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-//                        Toasty.success(context,"Register sucess",Toast.LENGTH_SHORT).show();
+
 
                                         }
                                     });
@@ -183,11 +183,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
-            mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
-            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+            Intent intent = new Intent(this,NavigationActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+            startActivity(intent);
+            this.finish();
 
-            findViewById(R.id.signInButton).setVisibility(View.GONE);
-            findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);
+//            mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
+//            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+//
+//            findViewById(R.id.signInButton).setVisibility(View.GONE);
+//            findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);
         } else {
             mStatusTextView.setText(R.string.signed_out);
             mDetailTextView.setText(null);
