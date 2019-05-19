@@ -16,18 +16,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.Bazinga.Bazinga.MyFirebaseAuth.revokeAccess;
 import static com.Bazinga.Bazinga.MyFirebaseAuth.signOut;
@@ -37,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public ProgressDialog mProgressDialog;
     private GoogleSignInClient mGoogleSignInClient;
-    private FirebaseFirestore db;
+
     // [START declare_auth]
     private FirebaseAuth mAuth;
 
@@ -56,10 +50,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Button listeners
         findViewById(R.id.signInButton).setOnClickListener(this);
-       // findViewById(R.id.signOutButton).setOnClickListener(this);
+        findViewById(R.id.signOutButton).setOnClickListener(this);
         findViewById(R.id.disconnectButton).setOnClickListener(this);
         findViewById(R.id.ToNav).setOnClickListener(this);
-        db = FirebaseFirestore.getInstance();
         // [START config_signin]
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -94,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-
     }
     // [END signin]
     // [START on_start_check_user]
@@ -146,21 +138,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Map<String, Object> this_user = new HashMap<>();
-                            this_user.put("Uid", mAuth.getCurrentUser().getUid());
-                            this_user.put("email", mAuth.getCurrentUser().getEmail());
-                            this_user.put("Lastlogin",new Date().getTime() +"");
-                            this_user.put("logout","");
-                            // Add a new document with a generated ID
-                            db.collection("users").document(mAuth.getUid())
-                                    .set(this_user)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-//                        Toasty.success(context,"Register sucess",Toast.LENGTH_SHORT).show();
-
-                                        }
-                                    });
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -202,17 +179,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int i = v.getId();
         if (i == R.id.signInButton) {
             signIn();
+        } else if (i == R.id.signOutButton) {
+            signOut(mAuth,mGoogleSignInClient).addOnCompleteListener(this,
+                    new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            updateUI(null);
+                        }
+                    });
         } else if (i == R.id.disconnectButton) {
-            Map<String, Object> m = new HashMap<>();
-            m.put("logout",new Date().getTime());
-            db.collection("users")
-                    .document(mAuth.getUid())
-                    .update(m);
             revokeAccess(mAuth,mGoogleSignInClient).addOnCompleteListener(this,
                     new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-
                             updateUI(null);
                         }
                     });
@@ -222,15 +201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
             this.finish();
         }
-//        else if (i == R.id.signOutButton) {
-//            signOut(mAuth,mGoogleSignInClient).addOnCompleteListener(this,
-//                    new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            updateUI(null);
-//                        }
-//                    });
-//        }
+
     }
 
 }
