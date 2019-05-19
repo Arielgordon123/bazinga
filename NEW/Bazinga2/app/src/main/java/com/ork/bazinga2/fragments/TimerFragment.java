@@ -84,15 +84,20 @@ public class TimerFragment extends Fragment implements TimerUpdate.TimeUpdateLis
                 Start(v);
             }
         });
-        Button btnStopt = curview.findViewById(R.id.btnStartTimer);
-        btnStart.setOnClickListener(new View.OnClickListener() {
+        Button btnStopt = curview.findViewById(R.id.stop);
+        btnStopt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Stop(v);
             }
         });
+        TextView timer = curview.findViewById(R.id.title);
+        timer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-
+            }
+        });
 
         return  curview;
     }
