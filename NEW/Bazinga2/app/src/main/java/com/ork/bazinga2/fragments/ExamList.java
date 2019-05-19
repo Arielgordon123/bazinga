@@ -21,11 +21,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.ork.bazinga2.MainApp;
 import com.ork.bazinga2.R;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
+
+import static com.ork.bazinga2.MainApp.mAuth;
 
 public class ExamList extends Fragment {
     View curview;
@@ -54,17 +54,12 @@ public class ExamList extends Fragment {
 
         // preparing list data
         prepareListData();
-        //listAdapter = new com.ork.bazinga2.fragments.ExpandableListAdapter(curview, listDataHeader, listDataChild);
 
-        // setting list adapter
-        //expListView.setAdapter(listAdapter);
 
         return  curview;
     }
     private void prepareListData() {
-        DatabaseReference myRef = database.getReference()
-                .child(Objects.requireNonNull(MainApp.mAuth.getUid()))
-                .child("events");
+        DatabaseReference myRef = database.getReference().child(mAuth.getUid()).child("events");
         Log.e("TAG", MainApp.mAuth.getUid());
         myRef.addValueEventListener(new ValueEventListener() {
         @Override
@@ -73,20 +68,21 @@ public class ExamList extends Fragment {
             // whenever data at this location is updated.
             int i = 0;
             Log.e("TAG", "bbbb");
+            listDataHeader = new ArrayList<String>();
+            listDataChild = new HashMap<String, List<String>>();
             for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                 event post = postSnapshot.getValue(event.class);
-                Log.e("TAG", post.title);
-                Field[] fields = post.getClass().getDeclaredFields();
-                List<String> subjectList = new ArrayList<String>();
-                listDataHeader = new ArrayList<String>();
-                listDataChild = new HashMap<String, List<String>>();
+                Log.e("TAG",post.title);
                 listDataHeader.add(post.title);
-//                for (Map.Entry<String, HashMap<String, String>> vals : post.subjects.entrySet()){
-//                    Log.e("TAG","key: " + vals.getKey()+ " val:" +vals.getValue() );
-//                }
-//                listDataChild.put(listDataHeader.get(i), subjectList);
-//                i++;
+                List<String> subjects = new ArrayList<String>();
+                subjects.add("Object Oriented Proggraming");
+                subjects.add("Functions");
+                subjects.add("Classes");
+                listDataChild.put(listDataHeader.get(i), subjects);
+                i++;
             }
+            listAdapter = new com.ork.bazinga2.fragments.ExpandableListAdapter(curview, listDataHeader, listDataChild);
+            expListView.setAdapter(listAdapter);
         }
 
         @Override

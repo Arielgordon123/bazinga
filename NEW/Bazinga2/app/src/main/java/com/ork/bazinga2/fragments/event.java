@@ -6,9 +6,13 @@ public class event {
     public String time;
     public String duration;
 
-    public event(String title, String date,String time,String duration) {
-        this.title = title;
-        this.date = date;
+    public event() {
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
+
+    public event(String username, String email,String time,String duration) {
+        this.title = username;
+        this.date = email;
         this.time = time;
         this.duration = duration;
     }

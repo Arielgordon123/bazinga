@@ -1,6 +1,5 @@
 package com.ork.bazinga2.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -21,14 +19,9 @@ import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ork.bazinga2.MainApp;
 import com.ork.bazinga2.R;
-import com.ork.bazinga2.fragments.MyDatePicker;
-import com.ork.bazinga2.fragments.MyTimePicker;
-import com.ork.bazinga2.fragments.addDialog;
-import com.ork.bazinga2.fragments.event;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

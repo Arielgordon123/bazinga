@@ -9,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.ork.bazinga2.fragments.BrainTrainer;
 import com.ork.bazinga2.fragments.Calendar;
 import com.ork.bazinga2.fragments.ExamList;
 import com.ork.bazinga2.fragments.MyDatePicker;
@@ -133,7 +133,7 @@ public class MainApp extends AppCompatActivity
         } else if (id == R.id.timer) {
             getSupportFragmentManager().beginTransaction().replace(R.id.cont, new TimerFragment()).commit();
         } else if (id == R.id.brainTrainer) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.cont, new BrainTrainer()).commit();
         } else if (id == R.id.nav_send) {
 
         }else if (id == R.id.nav_logout){
