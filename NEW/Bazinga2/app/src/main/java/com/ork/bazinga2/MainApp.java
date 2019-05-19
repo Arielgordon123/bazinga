@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -29,6 +30,7 @@ public class MainApp extends AppCompatActivity
     public static FirebaseAuth mAuth;
 
     public static FirebaseDatabase database;
+    ProgressBar progressBar;
     // Clander section
     public void openDatePicker(View view){
         MyDatePicker datePicker = new MyDatePicker();
@@ -51,6 +53,7 @@ public class MainApp extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_app);
+        progressBar = findViewById(R.id.progressBar);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

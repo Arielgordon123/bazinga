@@ -58,7 +58,7 @@ public class TimerFragment extends Fragment implements TimerUpdate.TimeUpdateLis
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        curview =  inflater.inflate(R.layout.exam_list_fragment,container,false);
+        curview =  inflater.inflate(R.layout.timer_fragment,container,false);
         mainApp = new MainApp();
         setPageTitle("Timer");
 
@@ -84,15 +84,20 @@ public class TimerFragment extends Fragment implements TimerUpdate.TimeUpdateLis
                 Start(v);
             }
         });
-        Button btnStopt = curview.findViewById(R.id.btnStartTimer);
-        btnStart.setOnClickListener(new View.OnClickListener() {
+        Button btnStopt = curview.findViewById(R.id.stop);
+        btnStopt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Stop(v);
             }
         });
+        TextView timer = curview.findViewById(R.id.title);
+        timer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-
+            }
+        });
 
         return  curview;
     }
