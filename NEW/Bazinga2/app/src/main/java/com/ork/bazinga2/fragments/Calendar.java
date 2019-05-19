@@ -1,5 +1,6 @@
 package com.ork.bazinga2.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -164,6 +165,9 @@ public class Calendar extends Fragment {
                 fillCalendar();
             }
         });
+
+
+
         dayList = curview.findViewById(R.id.dayList);
         setDayList();
         fillCalendar();
