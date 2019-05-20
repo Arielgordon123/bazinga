@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.ork.bazinga2.MainApp.database;
+import static com.ork.bazinga2.MainApp.fm;
 import static com.ork.bazinga2.MainApp.mAuth;
 
 public class ExamList extends Fragment {
@@ -88,15 +89,15 @@ public class ExamList extends Fragment {
                     listDataChild.put(e.title,subjects);
                 }
             }
-            
+
 
             listAdapter = new com.ork.bazinga2.fragments.ExpandableListAdapter(curview, listDataHeader, listDataChild);
             expListView.setAdapter(listAdapter);
-
-            expListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    mainApp.getSupportFragmentManager().beginTransaction().replace(R.id.cont, new TimerFragment()).commit();
+                public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(fm.getId(),new TimerFragment()).commit();
+                    return false;
                 }
             });
 
