@@ -1,5 +1,6 @@
 package com.ork.bazinga2.fragments;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class event {
@@ -7,6 +8,7 @@ public class event {
     public String date;
     public String time;
     public String duration;
+    public ArrayList<Subject> subjects;
 
     public event() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -17,12 +19,8 @@ public class event {
         this.date = email;
         this.time = time;
         this.duration = duration;
-        this.subject = subject;
+        this.subjects = new ArrayList<Subject>();
     }
-    public event()
-    {
-
-    }
-
-
 }
+
+

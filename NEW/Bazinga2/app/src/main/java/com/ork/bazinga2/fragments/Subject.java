@@ -5,13 +5,12 @@ public class Subject {
 
     public String title;
     public String timeLearned;
-
     public String timeToLearn;
 
 
     public Subject(String title,String timeToLearn,String timeLearned) {
         this.title = title;
-        this.timeLearned =  timeToLearn;
+        this.timeToLearn =  timeToLearn;
         this.timeLearned = timeLearned;
     }
 }

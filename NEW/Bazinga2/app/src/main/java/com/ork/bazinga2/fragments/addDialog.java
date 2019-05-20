@@ -18,7 +18,11 @@ import com.ork.bazinga2.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static com.ork.bazinga2.fragments.Calendar.calendarView;
 
@@ -29,6 +33,9 @@ public class addDialog extends AppCompatDialogFragment {
     static public EditText  editTextDuration;
     private MainApp ma;
     static List<EventDay> events = new ArrayList<>();
+
+    Map<String,Map<String,String>> userSubjects;
+
 
     public void addEvent(String date){
 
@@ -44,6 +51,7 @@ public class addDialog extends AppCompatDialogFragment {
         events.add(new EventDay(calendar, R.drawable.circle));
         calendarView.setEvents(events);
     }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -54,6 +62,9 @@ public class addDialog extends AppCompatDialogFragment {
         editTextDate = view.findViewById(R.id.DatePicker);
         editTextTime = view.findViewById(R.id.TimePicker);
         editTextDuration = view.findViewById(R.id.Duration);
+
+
+
         builder.setView(view)
                 .setTitle("Add event")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -77,11 +88,20 @@ public class addDialog extends AppCompatDialogFragment {
                         DatabaseReference myRef = MainApp.database.getReference();
                         myRef.child(MainApp.mAuth.getUid()).child("events").child("Ev"+new java.util.Date().hashCode()* -1).setValue(newEvent);
 
+
+
+
                         addEvent(date);
                     }
                 });
 
         return builder.create();
     }
+
+
+
+
+
+
 
 }

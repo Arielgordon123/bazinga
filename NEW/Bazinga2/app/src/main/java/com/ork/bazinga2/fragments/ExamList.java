@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.ork.bazinga2.MainApp.database;
 import static com.ork.bazinga2.MainApp.mAuth;
 
 public class ExamList extends Fragment {
@@ -36,6 +37,7 @@ public class ExamList extends Fragment {
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
 
+    ArrayList<event> data;
     private MainApp mainApp;
 
     public void setPageTitle(String title) {
@@ -56,9 +58,14 @@ public class ExamList extends Fragment {
         prepareListData();
 
 
+
+
+
+
         return  curview;
     }
     private void prepareListData() {
+        data = new ArrayList<>();
         DatabaseReference myRef = database.getReference().child(mAuth.getUid()).child("events");
         Log.e("TAG", MainApp.mAuth.getUid());
         myRef.addValueEventListener(new ValueEventListener() {
@@ -66,21 +73,43 @@ public class ExamList extends Fragment {
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             // This method is called once with the initial value and again
             // whenever data at this location is updated.
-            int i = 0;
-            Log.e("TAG", "bbbb");
+
+            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                data.add(postSnapshot.getValue(event.class));
+            }
             listDataHeader = new ArrayList<String>();
             listDataChild = new HashMap<String, List<String>>();
-            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                event post = postSnapshot.getValue(event.class);
-                Log.e("TAG",post.title);
-                listDataHeader.add(post.title);
-                List<String> subjects = new ArrayList<String>();
-                subjects.add("Object Oriented Proggraming");
-                subjects.add("Functions");
-                subjects.add("Classes");
-                listDataChild.put(listDataHeader.get(i), subjects);
-                i++;
+
+            for(event e : data)
+            {
+                listDataHeader.add(e.title);
+                if(e.subjects != null)
+                {
+                    List<String> subjects = new ArrayList<String>();
+                    for(Subject s : e.subjects) {
+                        subjects.add("learn " + s.timeToLearn + " learned " + s.timeLearned);
+                    }
+                    listDataChild.put(e.title,subjects);
+                }
             }
+
+//
+//            int i = 0;
+//            Log.e("TAG", "bbbb");
+//            listDataHeader = new ArrayList<String>();
+//            listDataChild = new HashMap<String, List<String>>();
+//            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+//                event post = postSnapshot.getValue(event.class);
+//                Log.e("TAG",post.title);
+//                listDataHeader.add(post.title);
+//                List<String> subjects = new ArrayList<String>();
+//                subjects.add("Object Oriented Proggraming");
+//                subjects.add("Functions");
+//                subjects.add("Classes");
+//                listDataChild.put(listDataHeader.get(i), subjects);
+//                i++;
+//            }
+
             listAdapter = new com.ork.bazinga2.fragments.ExpandableListAdapter(curview, listDataHeader, listDataChild);
             expListView.setAdapter(listAdapter);
         }
