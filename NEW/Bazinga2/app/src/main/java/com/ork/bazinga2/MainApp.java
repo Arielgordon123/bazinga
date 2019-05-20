@@ -25,8 +25,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.ork.bazinga2.fragments.BrainTrainer;
 import com.ork.bazinga2.fragments.Calendar;
 import com.ork.bazinga2.fragments.ExamList;
+import com.ork.bazinga2.fragments.Home;
 import com.ork.bazinga2.fragments.MyDatePicker;
 import com.ork.bazinga2.fragments.MyTimePicker;
+import com.ork.bazinga2.fragments.Settings;
+import com.ork.bazinga2.fragments.Stratagies;
 import com.ork.bazinga2.fragments.TimerFragment;
 import com.ork.bazinga2.fragments.addDialog;
 
@@ -64,6 +67,8 @@ public class MainApp extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_app);
+        getSupportFragmentManager().beginTransaction().replace(R.id.stratagiesCont, new Home()).commit();
+
         progressBar = findViewById(R.id.progressBar);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -112,6 +117,7 @@ public class MainApp extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.stratagiesCont, new Settings()).commit();
             return true;
         }
 
@@ -125,17 +131,17 @@ public class MainApp extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
+            getSupportFragmentManager().beginTransaction().replace(R.id.stratagiesCont, new Home()).commit();
         } else if (id == R.id.calander) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.cont, new Calendar()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.stratagiesCont, new Calendar()).commit();
         } else if (id == R.id.examList) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.cont, new ExamList()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.stratagiesCont, new ExamList()).commit();
         } else if (id == R.id.timer) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.cont, new TimerFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.stratagiesCont, new TimerFragment()).commit();
         } else if (id == R.id.brainTrainer) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.cont, new BrainTrainer()).commit();
-        } else if (id == R.id.nav_send) {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.stratagiesCont, new BrainTrainer()).commit();
+        } else if (id == R.id.stratgies) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.stratagiesCont, new Stratagies()).commit();
         }else if (id == R.id.nav_logout){
             Task<Void> voidTask = signOut(db, mAuth, mGoogleSignInClient).addOnCompleteListener(this,
                     new OnCompleteListener<Void>() {

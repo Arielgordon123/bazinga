@@ -5,16 +5,18 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
-import com.applandeo.materialcalendarview.listeners.DayRowClickListener;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.google.firebase.database.DataSnapshot;
@@ -141,8 +143,9 @@ public class Calendar extends Fragment {
                 addDialog dialogs = new addDialog();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     event post = postSnapshot.getValue(event.class);
+                    Log.e("Get Data", post.date);
                     dialogs.addEvent(post.date);
-                    Log.e("Get Data", post.title);
+
                 }
             }
 
@@ -156,11 +159,16 @@ public class Calendar extends Fragment {
             }
         });
     }
+    public void setPageTitle(String title) {
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>"+title+ "</font>"));
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         curview =  inflater.inflate(R.layout.fragment_calander,container,false);
         ma = new MainApp();
+        setPageTitle("Calendar");
         addBtn = curview.findViewById(R.id.add);
         calendarView = curview.findViewById(R.id.calander);
         calendarView.setOnPreviousPageChangeListener(new OnCalendarPageChangeListener() {

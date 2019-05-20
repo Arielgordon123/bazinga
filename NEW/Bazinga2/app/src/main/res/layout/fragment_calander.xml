@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".MainApp">
 
@@ -10,7 +11,8 @@
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calander"
         android:layout_width="match_parent"
-        android:layout_height="352dp">
+        app:headerColor="@color/colorPrimaryDark"
+        android:layout_height="350dp">
 
     </com.applandeo.materialcalendarview.CalendarView>
 
@@ -24,11 +26,14 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
+        android:src="@drawable/ic_add_black_24dp"
+
         android:onClick="openAddDialog"
-        android:src="@drawable/circle" />
+        app:backgroundTint="@color/colorPrimaryDark" />
 
 </LinearLayout>

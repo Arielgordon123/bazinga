@@ -1,4 +1,10 @@
 <resources>
+    <string-array name="planets_array">
+        <item>Ariel</item>
+        <item>Ben Thumi</item>
+        <item>Rabin School</item>
+
+    </string-array>
     <string name="app_name">Bazinga2</string>
     <string name="title_activity_main_app">MainApp</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
