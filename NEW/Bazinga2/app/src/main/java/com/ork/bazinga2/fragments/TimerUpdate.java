@@ -48,7 +48,6 @@ public class TimerUpdate extends AppCompatDialogFragment {
                 int m = 1000 * 60 * Integer.parseInt(M);
                 //update timer
                 _listener.ApplyNewTime(h+m);
-
             }
         });
         return builder.create();
@@ -58,7 +57,7 @@ public class TimerUpdate extends AppCompatDialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            _listener = (TimeUpdateListener)context;
+            _listener = (TimeUpdateListener)this.getParentFragment();
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()+"must implement TimeUpdateListener");
         }

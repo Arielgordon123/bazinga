@@ -5,6 +5,7 @@ public class event {
     public String date;
     public String time;
     public String duration;
+    public ArrayList<Subject> subjects;
 
     public event() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -16,6 +17,6 @@ public class event {
         this.time = time;
         this.duration = duration;
     }
-
-
 }
+
+

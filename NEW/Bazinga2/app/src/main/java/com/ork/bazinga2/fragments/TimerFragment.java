@@ -1,8 +1,10 @@
 package com.ork.bazinga2.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,10 +21,17 @@ import android.widget.Toast;
 
 import com.ork.bazinga2.MainApp;
 import com.ork.bazinga2.R;
+import com.ork.bazinga2.fragments.TimerUpdate.TimeUpdateListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
-public class TimerFragment extends Fragment implements TimerUpdate.TimeUpdateListener {
+
+public class TimerFragment extends Fragment implements TimeUpdateListener {
     View curview;
     private MainApp mainApp;
 
@@ -38,6 +47,10 @@ public class TimerFragment extends Fragment implements TimerUpdate.TimeUpdateLis
     TextView mnText;
     Intent currentTimer;
     boolean isruning = false;
+
+    String currsub;
+    ArrayList<String> subsubject ;
+
     //TODO:
     // get sub-subject list from data base
     // save to local storage and memory(arraylist)
@@ -68,6 +81,12 @@ public class TimerFragment extends Fragment implements TimerUpdate.TimeUpdateLis
         subjects.add("aaa");
         subjects.add("bbb");
         subjects.add("ccc");
+        subsubject = new ArrayList<>();
+
+
+        //_StorageInsart("a","a");
+
+        //StorageGet();
 
         //set main subject
         mnText = (TextView)curview.findViewById(R.id.txtMainSubject);
@@ -75,7 +94,6 @@ public class TimerFragment extends Fragment implements TimerUpdate.TimeUpdateLis
         //set sub-subject
         sbText = (TextView)curview.findViewById(R.id.txtSubSubject);
         sbText.setText(subjects.get(0));
-
 
         Button btnStart = curview.findViewById(R.id.btnStartTimer);
         btnStart.setOnClickListener(new View.OnClickListener() {
@@ -95,13 +113,18 @@ public class TimerFragment extends Fragment implements TimerUpdate.TimeUpdateLis
         timer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                _OpenTimeEditor();
             }
         });
 
+
+
+
+
+        currsub = subjects.get(0);
+
         return  curview;
     }
-
 
 
 
@@ -127,7 +150,7 @@ public class TimerFragment extends Fragment implements TimerUpdate.TimeUpdateLis
 
             @Override
             public void onFinish() {
-                Toast.makeText(curview.getContext(),"done " + subjects.get(0),Toast.LENGTH_LONG).show();
+
                 isruning = false;
                 counter.cancel();
                 //TODO:
@@ -136,11 +159,13 @@ public class TimerFragment extends Fragment implements TimerUpdate.TimeUpdateLis
                 // get next sub-subject from local storage
                 // set up timers
                 // start again
+                Toast.makeText(curview.getContext(),"done " + currsub,Toast.LENGTH_LONG).show();
                 subjects.remove(0);
                 //check if subject list is empty
                 //if empty done with current subject
                 if(!subjects.isEmpty() && subjects!= null)
                 {
+                    currsub = subjects.get(0);
                     sbText.setText(subjects.get(0));
                     start();
                 }
@@ -188,30 +213,71 @@ public class TimerFragment extends Fragment implements TimerUpdate.TimeUpdateLis
     {
         //TODO:
         // update main progress bar(total learning progress)
+        // go back to main page
+
     }
 
+    //TODO:
+    // functions: -retrive data from local storage
+    //            -update locat storage
+    //            -get data from database
     private void _StorageUpdate(String key, String ... params)
     {
         //TODO:
         // update the data in the local storage
     }
 
-    private void _StorageInsart(String key,String value)
-    {
+    private void _StorageInsart(String key,String value) {
         //TODO:
         // insert data as json to local storage
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        SharedPreferences.Editor mEdit1 = sp.edit();
+        Set set;
+        JSONObject subject = new JSONObject();
+
+
+        for(int a = 0; a < 2; a++)
+        {
+            if(subsubject != null)
+                subsubject.clear();
+            try {
+                subject.put("subject", "a" + a);
+            }catch (Exception e)
+            {
+                e.getStackTrace();
+            }
+            for(int w = 0; w < 5; w++)
+            {
+                subsubject.add("sub"+w+a);
+            }
+            set = new HashSet(subsubject);
+            mEdit1.putStringSet("a"+ a, set );
+        }
     }
 
-    private void _StorageGet(String key)
+    public void StorageGet()
     {
+
         //TODO:
         // pull json from data storage
+//        SharedPreferences mSharedPreference1 =  PreferenceManager.getDefaultSharedPreferences(this.getContext());
+//
+//        //ubsubject.clear();
+//        //int size = mSharedPreference1.getInt("a1", 0);
+//
+//        subsubject = (ArrayList<String>)mSharedPreference1.getStringSet("a1", null);
+//
+//        for(int i=0;i < 5;i++)
+//        {
+//           Log.i("arr + " + i + " ",subsubject.get(i));
+//        }
+
     }
 
-    public void _OpenTimeEditor(View view) {
+    public void _OpenTimeEditor() {
         Stop(null);
         TimerUpdate updater = new TimerUpdate();
-        updater.show(mainApp.getSupportFragmentManager(),"update time");
+        updater.show(getChildFragmentManager(),"update time");
     }
 
     @Override
@@ -219,10 +285,4 @@ public class TimerFragment extends Fragment implements TimerUpdate.TimeUpdateLis
         Add(newTime);
         Start(null);
     }
-
-
-    //TODO:
-    // functions: -retrive data from local storage
-    //            -update locat storage
-    //            -get data from database
 }
