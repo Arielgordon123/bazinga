@@ -143,7 +143,7 @@ public class Calendar extends Fragment {
                 addDialog dialogs = new addDialog();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     event post = postSnapshot.getValue(event.class);
-                    Log.e("Get Data", post.date);
+                    //Log.e("Get Data", post.date);
                     dialogs.addEvent(post.date);
 
                 }

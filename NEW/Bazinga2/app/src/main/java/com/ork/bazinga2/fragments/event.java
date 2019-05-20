@@ -1,5 +1,7 @@
 package com.ork.bazinga2.fragments;
 
+import java.util.ArrayList;
+
 public class event {
     public String title;
     public String date;
@@ -16,6 +18,7 @@ public class event {
         this.date = email;
         this.time = time;
         this.duration = duration;
+        this.subjects = new ArrayList<>();
     }
 }
 

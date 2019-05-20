@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.applandeo.materialcalendarview.EventDay;
 import com.google.firebase.database.DataSnapshot;
@@ -21,11 +19,9 @@ import com.ork.bazinga2.MainApp;
 import com.ork.bazinga2.R;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import static com.ork.bazinga2.MainApp.database;
-import static com.ork.bazinga2.fragments.Calendar.calendarView;
 
 public class addSubjectDialog extends AppCompatDialogFragment {
     private EditText editTextTitle;
@@ -60,7 +56,7 @@ public class addSubjectDialog extends AppCompatDialogFragment {
 
                         DatabaseReference myRef2 = database.getReference()
                                 .child(MainApp.mAuth.getUid())
-                                .child("events").child("Ev761635623");
+                                .child("events").child("Ev780143719");
 
                         myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
