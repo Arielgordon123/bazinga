@@ -21,4 +21,5 @@
     <string name="google_status_fmt">Google User: %s</string>
     <string name="firebase_status_fmt">Firebase User: %s</string>
     <string name="signed_out">Signed Out</string>
+    <string name="menu_logout">LogOut</string>
 </resources>
