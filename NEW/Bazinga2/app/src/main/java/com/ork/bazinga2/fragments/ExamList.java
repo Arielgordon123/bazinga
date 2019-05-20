@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
@@ -57,11 +58,6 @@ public class ExamList extends Fragment {
         // preparing list data
         prepareListData();
 
-
-
-
-
-
         return  curview;
     }
     private void prepareListData() {
@@ -92,26 +88,19 @@ public class ExamList extends Fragment {
                     listDataChild.put(e.title,subjects);
                 }
             }
-
-//
-//            int i = 0;
-//            Log.e("TAG", "bbbb");
-//            listDataHeader = new ArrayList<String>();
-//            listDataChild = new HashMap<String, List<String>>();
-//            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-//                event post = postSnapshot.getValue(event.class);
-//                Log.e("TAG",post.title);
-//                listDataHeader.add(post.title);
-//                List<String> subjects = new ArrayList<String>();
-//                subjects.add("Object Oriented Proggraming");
-//                subjects.add("Functions");
-//                subjects.add("Classes");
-//                listDataChild.put(listDataHeader.get(i), subjects);
-//                i++;
-//            }
+            
 
             listAdapter = new com.ork.bazinga2.fragments.ExpandableListAdapter(curview, listDataHeader, listDataChild);
             expListView.setAdapter(listAdapter);
+
+            expListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    mainApp.getSupportFragmentManager().beginTransaction().replace(R.id.cont, new TimerFragment()).commit();
+                }
+            });
+
+
         }
 
         @Override
